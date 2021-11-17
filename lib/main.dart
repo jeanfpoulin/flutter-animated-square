@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,13 +25,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -41,7 +45,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -57,24 +61,17 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      _counter = _counter + 1; // meme chose que _counter++
 
       var rnd = new Random();
-      double changeWidth = (rnd.nextDouble() - 0.5) * 2 * 90;
-      double changeHeight = (rnd.nextDouble() - 0.5) * 2 * 90;
 
-      int rouge = rnd.nextInt(255);
-      int vert = rnd.nextInt(255);
-      int bleu = rnd.nextInt(255);
+      _width = rnd.nextDouble() * 200;
+      _height = rnd.nextDouble() * 200;
 
-      _width += changeWidth;
-      _height += changeHeight;
-      _color = Color.fromARGB(255, rouge, vert, bleu);
+      _color = Color.fromARGB(255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
 
-      if(_width < 10) _width = 10;
-      if(_width > 500) _width = 500;
-      if(_height < 10) _height = 10;
-      if(_height > 500) _height = 500;
+      // 0.34 * 200 = 68
+
     });
   }
 
@@ -114,16 +111,16 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             AnimatedContainer(
               duration: Duration(milliseconds: 500),
-              color: _color,
               width: _width,
               height: _height,
+              color: _color
             ),
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
@@ -131,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
